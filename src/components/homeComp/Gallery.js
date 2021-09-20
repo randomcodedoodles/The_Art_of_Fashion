@@ -61,5 +61,7 @@ export const Gallery = () => {
 }
 //<Swiper navigation={true} pagination={{"dynamicBullets": true}} className="mySwiper" loop>
 //<Swiper navigation={{nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev',}}>
+////navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev',}
+//pagination: {el: '.swiper-pagination', type: 'bullets',},
 //<img src={_item.ImageUrl} alt="banner" />  <h1>{_item.Title}</h1> <p>{_item.Subtitle}</p>
 //or button wrapped by Link -> see Service.js
