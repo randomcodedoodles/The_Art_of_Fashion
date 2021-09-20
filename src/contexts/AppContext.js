@@ -8,7 +8,7 @@ export const AppProvider = ({children}) => {
 
     const [dropDownManuShown, setDropDownManuShown] = useState(false);
 
-    const [bannerItems, setBannerItems] = useState([]);
+    //const [bannerItems, setBannerItems] = useState([]);
 
 
     useEffect(()=>{
@@ -20,7 +20,7 @@ export const AppProvider = ({children}) => {
         return () => window.removeEventListener("load", handleHorizontalScrollBarWhenLoaded);
     },[]) 
 
-    
+    /*
     useEffect(() => {
         fetchBannerItems();
     }, [])
@@ -36,7 +36,7 @@ export const AppProvider = ({children}) => {
             //console.log(err.response, err.response.status, err.response.statusText);
         }
     }
-        
+        */
 
 
     const showDropDownManu = () => setDropDownManuShown(!dropDownManuShown);
@@ -48,7 +48,7 @@ export const AppProvider = ({children}) => {
     <AppContext.Provider value={{
       dropDownManuShown, setDropDownManuShown,
       showDropDownManu, alwaysHideDropDownManu,
-      bannerItems, setBannerItems,
+      //bannerItems, setBannerItems,
     }}>
       {children}
     </AppContext.Provider>
@@ -61,12 +61,12 @@ export const useApp=()=>{
     const {
         dropDownManuShown, setDropDownManuShown,
         showDropDownManu, alwaysHideDropDownManu,
-        bannerItems, setBannerItems,
+        //bannerItems, setBannerItems,
     } = useContext(AppContext);
 
     return {
         dropDownManuShown, setDropDownManuShown,
         showDropDownManu, alwaysHideDropDownManu,
-        bannerItems, setBannerItems,
+        //bannerItems, setBannerItems,
     } //return a single obj
 }

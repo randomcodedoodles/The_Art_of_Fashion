@@ -18,9 +18,9 @@ export const Gallery = () => {
 
     const history = useHistory();
     
-    //const [bannerItems, setBannerItems] = useState([]);
-    const { bannerItems, setBannerItems, } = useApp();
-/*
+    const [bannerItems, setBannerItems] = useState([]);
+    //const { bannerItems, setBannerItems, } = useApp();
+
     const fetchBannerItems = async () => {
         try{
             const items = await axios.get("https://interview-assessment.api.avamae.co.uk/api/v1/home/banner-details");
@@ -34,19 +34,20 @@ export const Gallery = () => {
     useEffect(() => {
         fetchBannerItems();
     }, [])
-    */
+    
 
         
     return (
         <div className="gallery">
-            <Swiper navigation={true} pagination={{"dynamicBullets": true}} className="mySwiper" loop>
-                {bannerItems?.map((_item, _index) => {
+            <Swiper navigation={true} loop
+                pagination={{"dynamicBullets": true}} className="mySwiper" >
+                {bannerItems?.map((_item, _index) => { console.log(_item.ImageUrl, _item.Title, _item.Subtitle)
                     return (
                         <SwiperSlide className="mySlide" key={_index}>
-                            <img src={_item.ImageUrl} alt="banner" />
+                            <img src={bannerItems[_index+1 === bannerItems.length ? 0 : (_index+1)].ImageUrl} alt="banner" />
                             <div className="slide-text">
-                                        <h1>{_item.Title}</h1>
-                                        <p>{_item.Subtitle}</p>
+                                        <h1>{bannerItems[_index+1 === bannerItems.length ? 0 : (_index+1)].Title}</h1>
+                                        <p>{bannerItems[_index+1 === bannerItems.length ? 0 : (_index+1)].Subtitle}</p>
                                         <button className="contactus-btn" onClick={() => { history.push('/contact-us'); }}>Contact us</button>
                                     
                             </div>
@@ -58,5 +59,7 @@ export const Gallery = () => {
         </div>
     )
 }
-
+//<Swiper navigation={true} pagination={{"dynamicBullets": true}} className="mySwiper" loop>
+//<Swiper navigation={{nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev',}}>
+//<img src={_item.ImageUrl} alt="banner" />  <h1>{_item.Title}</h1> <p>{_item.Subtitle}</p>
 //or button wrapped by Link -> see Service.js
