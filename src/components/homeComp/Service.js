@@ -1,10 +1,8 @@
 import {Link, useHistory} from "react-router-dom"
-import { useApp } from "../../contexts/AppContext"
 import "./styles/Service.css"
 
 export const Service = () => {
     //const history = useHistory();
-    const { handleStatesAftRedirect } = useApp();
 
     return (
         <div className="service">
@@ -40,7 +38,7 @@ export const Service = () => {
                 Explicabo maxime quae quod. Vero, quasi saepe. Laborum, minus. 
                 </p>
             </div>
-            <Link to='/contact-us' onClick={handleStatesAftRedirect}> <button className="contact-btn"> Contact us </button> </Link>
+            <Link to='/contact-us'> <button className="contact-btn"> Contact us </button> </Link>
         </div>
     )
 }

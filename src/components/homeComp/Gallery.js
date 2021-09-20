@@ -19,7 +19,7 @@ export const Gallery = () => {
     const history = useHistory();
     
     //const [bannerItems, setBannerItems] = useState([]);
-    const {bannerItems, setBannerItems, handleStatesAftRedirect} = useApp();
+    const { bannerItems, setBannerItems, } = useApp();
 /*
     const fetchBannerItems = async () => {
         try{
@@ -47,7 +47,7 @@ export const Gallery = () => {
                             <div className="slide-text">
                                         <h1>{_item.Title}</h1>
                                         <p>{_item.Subtitle}</p>
-                                        <button className="contactus-btn" onClick={() => { handleStatesAftRedirect(); history.push('/contact-us'); }}>Contact us</button>
+                                        <button className="contactus-btn" onClick={() => { history.push('/contact-us'); }}>Contact us</button>
                                     
                             </div>
                         </SwiperSlide>
