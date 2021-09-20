@@ -1,5 +1,6 @@
 import rightImg from "../../Resources/shutterstock_696636415.jpg"
 import "./styles/Introduction.css"
+
 export const Introduction = () => {
     return (
         <div className="introduction">

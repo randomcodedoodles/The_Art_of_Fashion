@@ -2,7 +2,7 @@ import {Link, useHistory} from "react-router-dom"
 import "./styles/Service.css"
 
 export const Service = () => {
-    const history = useHistory();
+    //const history = useHistory();
 
     return (
         <div className="service">

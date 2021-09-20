@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import logo from '../Resources/Logo.svg'
 import "./styles/Header.css"
 
+import { useApp } from '../contexts/AppContext'
 
-export const Header = (props) => {
 
-    //const [dropDownManuShown, setDropDownManuShown] = useState(false);
-    const {dropDownManuShown, showDropDownManu, alwaysHideDropDownManu} = props;
+export const Header = () => { //(props)
+
+    //const {dropDownManuShown, showDropDownManu, alwaysHideDropDownManu} = props;
+    const {dropDownManuShown, showDropDownManu, alwaysHideDropDownManu} = useApp();
 
     return (
         <header className="App-header">

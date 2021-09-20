@@ -6,8 +6,8 @@ import { Home } from "./components/homeComp/Home";
 import { ContactUs } from "./components/contactUsComp/ContactUs";
 import { AboutUs } from "./components/aboutUsComp/AboutUs";
 import { Footer } from "./components/Footer";
-import ScrollToTopCenter from "./ScrollToTop";
-
+import ScrollToTopCenter from "./ScrollToTopCenter";
+/*
 function App() {
 
   useEffect(()=>{
@@ -47,3 +47,27 @@ export default App;
 
 //<Router onUpdate={() => window.scrollTo(0, 0)} history={createBrowserHistory()}>
 //<Router history={browserHistory}></Router>
+*/
+
+
+function App() {
+
+  return (
+    <div className="App">
+      <Router>
+        <ScrollToTopCenter>
+          <Header />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/about-us" component={AboutUs} />
+            <Route path="/contact-us" component={ContactUs}/>
+            <Route>404 Not Found!</Route>
+          </Switch>
+          <Footer />
+        </ScrollToTopCenter>
+      </Router>
+    </div>
+  );
+}
+
+export default App;

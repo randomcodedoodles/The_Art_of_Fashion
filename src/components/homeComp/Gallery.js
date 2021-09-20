@@ -10,13 +10,16 @@ import SwiperCore, {
 } from 'swiper'; 
 
 import "./styles/Gallery.css";
+import { useApp } from '../../contexts/AppContext';
 
 SwiperCore.use([Pagination, Navigation]);
   
-export const Gallery = () => {
+export const Gallery = () => { //({ history }) or (props) -> props.history
 
-    const [bannerItems, setBannerItems] = useState([]);
     const history = useHistory();
+    //const history = useApp().props.history
+    
+    const [bannerItems, setBannerItems] = useState([]);
 
         const fetchBannerItems = async () => {
             try{
@@ -31,12 +34,14 @@ export const Gallery = () => {
         useEffect(() => {
             fetchBannerItems();
         }, [])
+    
 
+    //const { bannerItems } = useApp();
         
     return (
         <div className="gallery">
             <Swiper navigation={true} pagination={{"dynamicBullets": true}} className="mySwiper" loop>
-                {bannerItems.map((_item, _index) => {
+                {bannerItems?.map((_item, _index) => {
                     return (
                         <SwiperSlide className="mySlide" key={_index}>
                             <img src={_item.ImageUrl} alt="banner" />
@@ -54,3 +59,6 @@ export const Gallery = () => {
         </div>
     )
 }
+
+
+//history.push props.history.push

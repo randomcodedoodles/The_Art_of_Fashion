@@ -2,9 +2,15 @@ import "../styles/App-container.css"
 import "./styles/AboutUs.css"
 import midImg from "../../Resources/shutterstock_696636415.jpg"
 
-export const AboutUs = (props) => {
+import { useApp } from "../../contexts/AppContext"
+
+export const AboutUs = () => { //(props)
+
+    const { dropDownManuShown } = useApp();
+
+    //<section className={`App-container ${props.dropDownManuShown ? 'drop-down' : ''}`}>
     return (
-        <section className={`App-container ${props.dropDownManuShown ? 'drop-down' : ''}`}>
+        <section className={`App-container ${dropDownManuShown ? 'drop-down' : ''}`}>
             <div className="about-us">
                 
                 <div className="beforeImg">
