@@ -19,8 +19,8 @@ export const Gallery = () => {
     const history = useHistory();
     
     //const [bannerItems, setBannerItems] = useState([]);
-    const {bannerItems, setBannerItems} = useApp();
-
+    const {bannerItems, setBannerItems, handleStatesAftRedirect} = useApp();
+/*
     const fetchBannerItems = async () => {
         try{
             const items = await axios.get("https://interview-assessment.api.avamae.co.uk/api/v1/home/banner-details");
@@ -34,7 +34,7 @@ export const Gallery = () => {
     useEffect(() => {
         fetchBannerItems();
     }, [])
-    
+    */
 
         
     return (
@@ -47,7 +47,7 @@ export const Gallery = () => {
                             <div className="slide-text">
                                         <h1>{_item.Title}</h1>
                                         <p>{_item.Subtitle}</p>
-                                        <button className="contactus-btn" onClick={() => history.push('/contact-us')}>Contact us</button>
+                                        <button className="contactus-btn" onClick={() => { handleStatesAftRedirect(); history.push('/contact-us'); }}>Contact us</button>
                                     
                             </div>
                         </SwiperSlide>

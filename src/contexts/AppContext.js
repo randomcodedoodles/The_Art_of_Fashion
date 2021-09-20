@@ -30,7 +30,6 @@ export const AppProvider = ({children}) => {
     const [bannerItems, setBannerItems] = useState([]);
 
 
-
     useEffect(()=>{
         console.log(document.body.scrollWidth, document.body.clientWidth, window.innerWidth, document.documentElement.clientWidth, window.screen.width)
     
@@ -40,7 +39,7 @@ export const AppProvider = ({children}) => {
         return () => window.removeEventListener("load", handleHorizontalScrollBarWhenLoaded);
     },[]) 
 
-    /*
+    
     useEffect(() => {
         fetchBannerItems();
     }, [])
@@ -56,7 +55,7 @@ export const AppProvider = ({children}) => {
             //console.log(err.response, err.response.status, err.response.statusText);
         }
     }
-        */
+        
 
 
     const showDropDownManu = () => setDropDownManuShown(!dropDownManuShown);
@@ -130,6 +129,27 @@ export const AppProvider = ({children}) => {
         setErrMsg(err.response.data.Errors)
     }
     
+    const handleStatesAftRedirect = () => {
+        setSubmitted(false);
+        setUserData({
+            FullName: "",
+            EmailAddress:"",
+            PhoneNumbers: [""],
+            Message: "",
+            bIncludeAddressDetails: false,
+            AddressDetails: {
+                AddressLine1: "",
+                AddressLine2: "",
+                CityTown: "",
+                StateCounty: "",
+                Postcode: "",
+                Country: ""
+            }
+        
+        })
+        setErrMsg([])
+    }
+
     const addPhoneNumber = () => { 
         setUserData({
             ...userData,
@@ -156,6 +176,7 @@ export const AppProvider = ({children}) => {
       addPhoneNumber, addAddressDetails,
       showDropDownManu, alwaysHideDropDownManu,
       bannerItems, setBannerItems,
+      handleStatesAftRedirect,
     }}>
       {children}
     </AppContext.Provider>
@@ -175,6 +196,7 @@ export const useApp=()=>{
         addPhoneNumber, addAddressDetails,
         showDropDownManu, alwaysHideDropDownManu,
         bannerItems, setBannerItems,
+        handleStatesAftRedirect,
     } = useContext(AppContext);
 
     return {
@@ -187,5 +209,6 @@ export const useApp=()=>{
         addPhoneNumber, addAddressDetails,
         showDropDownManu, alwaysHideDropDownManu,
         bannerItems, setBannerItems,
+        handleStatesAftRedirect,
     } //return a single obj
 }
