@@ -27,7 +27,7 @@ export const AppProvider = ({children}) => {
     const [errMsg, setErrMsg] = useState([]);
     const [submitted, setSubmitted] = useState(false);
 
-    //const [bannerItems, setBannerItems] = useState([]);
+    const [bannerItems, setBannerItems] = useState([]);
 
 
 
@@ -143,47 +143,7 @@ export const AppProvider = ({children}) => {
           })
     }
     
-  /*
-    const postUserData = async () => {
-        try {
-            //userData.PhoneNumbers = userData.PhoneNumbers.filter(_num => _num !== ""); //setUserData???
-            const modUserData = {...userData, PhoneNumbers: userData.PhoneNumbers.filter(_num => _num !== "")} //1
-            //let modUserData = {...userData} //2
-            //modUserData.PhoneNumbers = modUserData.PhoneNumbers.filter(_num => _num !== ""); //2a//or 2b userData.PhoneNumbers.filter(_num => _num !== "")
-            
-           console.log(userData, modUserData) //different in 1 also different in 2
-            const res = await axios.post("https://interview-assessment.api.avamae.co.uk/api/v1/contact-us/submit", modUserData)
-    
-            if(res.status === 200 || res.statusText === "OK" || res.data.Status === "1" || res.data.Errors.length === 0){
-                
-                setSubmitted(true);
-                setUserData({
-                    FullName: "",
-                    EmailAddress:"",
-                    PhoneNumbers: [""],
-                    Message: "",
-                    bIncludeAddressDetails: false,
-                    AddressDetails: {
-                        AddressLine1: "",
-                        AddressLine2: "",
-                        CityTown: "",
-                        StateCounty: "",
-                        Postcode: "",
-                        Country: ""
-                    }
-        
-                })
-                setErrMsg([])
-                console.log("success", submitted==false?'false':'true')
-            }
-        }catch(err) {
-            //console.log(err.message,err.status,err.statusCode,err.response,errMsg,err.response.status,err.response.statusText);
-            setErrMsg(err.response.data.Errors)
-        }
-    
-    } */
 
-    useEffect(()=>console.log(submitted==false?'false':'true'),[submitted])
 
   return(
     <AppContext.Provider value={{
@@ -191,11 +151,11 @@ export const AppProvider = ({children}) => {
       userData, setUserData,
       errMsg, setErrMsg,
       submitted, setSubmitted,
-      handleInputChange, handlePhoneNumberChange, //handleFormSubmission,
+      handleInputChange, handlePhoneNumberChange,
       handleStatesAftSuccessFormSubmission, handleStatesAftFormSubmissionFailure,
       addPhoneNumber, addAddressDetails,
       showDropDownManu, alwaysHideDropDownManu,
-      //...props
+      bannerItems, setBannerItems,
     }}>
       {children}
     </AppContext.Provider>
@@ -210,11 +170,11 @@ export const useApp=()=>{
         userData, setUserData,
         errMsg, setErrMsg,
         submitted, setSubmitted,
-        handleInputChange, handlePhoneNumberChange, //handleFormSubmission,
+        handleInputChange, handlePhoneNumberChange, 
         handleStatesAftSuccessFormSubmission, handleStatesAftFormSubmissionFailure,
         addPhoneNumber, addAddressDetails,
         showDropDownManu, alwaysHideDropDownManu,
-        //...props
+        bannerItems, setBannerItems,
     } = useContext(AppContext);
 
     return {
@@ -222,10 +182,10 @@ export const useApp=()=>{
         userData, setUserData,
         errMsg, setErrMsg,
         submitted, setSubmitted,
-        handleInputChange, handlePhoneNumberChange, //handleFormSubmission,
+        handleInputChange, handlePhoneNumberChange, 
         handleStatesAftSuccessFormSubmission, handleStatesAftFormSubmissionFailure,
         addPhoneNumber, addAddressDetails,
         showDropDownManu, alwaysHideDropDownManu,
-        //...props
+        bannerItems, setBannerItems,
     } //return a single obj
 }

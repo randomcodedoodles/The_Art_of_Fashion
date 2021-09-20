@@ -14,29 +14,28 @@ import { useApp } from '../../contexts/AppContext';
 
 SwiperCore.use([Pagination, Navigation]);
   
-export const Gallery = () => { //({ history }) or (props) -> props.history
+export const Gallery = () => { 
 
     const history = useHistory();
-    //const history = useApp().props.history
     
-    const [bannerItems, setBannerItems] = useState([]);
+    //const [bannerItems, setBannerItems] = useState([]);
+    const {bannerItems, setBannerItems} = useApp();
 
-        const fetchBannerItems = async () => {
-            try{
-                const items = await axios.get("https://interview-assessment.api.avamae.co.uk/api/v1/home/banner-details");
-                if(items.status === 200 || items.statusText === 'OK'){
-                    setBannerItems(items.data.Details);
-                }
-            }catch(err){
-                //console.log(err.response, err.response.status, err.response.statusText);
+    const fetchBannerItems = async () => {
+        try{
+            const items = await axios.get("https://interview-assessment.api.avamae.co.uk/api/v1/home/banner-details");
+            if(items.status === 200 || items.statusText === 'OK'){
+                setBannerItems(items.data.Details);
             }
+        }catch(err){
+            //console.log(err.response, err.response.status, err.response.statusText);
         }
-        useEffect(() => {
-            fetchBannerItems();
-        }, [])
+    }
+    useEffect(() => {
+        fetchBannerItems();
+    }, [])
     
 
-    //const { bannerItems } = useApp();
         
     return (
         <div className="gallery">
@@ -60,5 +59,4 @@ export const Gallery = () => { //({ history }) or (props) -> props.history
     )
 }
 
-
-//history.push props.history.push
+//or button wrapped by Link -> see Service.js

@@ -4,11 +4,10 @@ import midImg from "../../Resources/shutterstock_696636415.jpg"
 
 import { useApp } from "../../contexts/AppContext"
 
-export const AboutUs = () => { //(props)
+export const AboutUs = () => { 
 
     const { dropDownManuShown } = useApp();
 
-    //<section className={`App-container ${props.dropDownManuShown ? 'drop-down' : ''}`}>
     return (
         <section className={`App-container ${dropDownManuShown ? 'drop-down' : ''}`}>
             <div className="about-us">

@@ -6,9 +6,8 @@ import "./styles/Header.css"
 import { useApp } from '../contexts/AppContext'
 
 
-export const Header = () => { //(props)
+export const Header = () => { 
 
-    //const {dropDownManuShown, showDropDownManu, alwaysHideDropDownManu} = props;
     const {dropDownManuShown, showDropDownManu, alwaysHideDropDownManu} = useApp();
 
     return (
@@ -37,13 +36,3 @@ export const Header = () => { //(props)
     )
 }
 
-
-
-
-
-
-
-//className={`logo ${dropDownManuShown ? 'drop-down':''}`} {dropDownManuShown ? "logo drop-down" : "logo"}
-//onClick={() => setDropDownManuShown(!dropDownManuShown)} onClick={() => {setDropDownManuShown(!dropDownManuShown)}}
-//onClick={() => {setDropDownManuShown(!dropDownManuShown); reutrn;}}
-//onClick={showDropDownManu}  onClick={() => {showDropDownManu();}} onClick={() => {showDropDownManu(); return;}} onClick={() => showDropDownManu()}

@@ -8,21 +8,6 @@ import "../styles/App-container.css"
 
 import { useApp } from "../../contexts/AppContext"
 
-/*
-export const Home = (props) => {
-    return (
-        <section className={`App-container ${props.dropDownManuShown ? 'drop-down' : ''}`}>
-            <Gallery />
-            <Introduction />
-            <Individual />
-            <Service />
-            
-        </section>
-    )
-}
-
-//{${dropDownManuShown ? "App-container drop-down" : ""}
-*/
 
 export const Home = () => {
     const { dropDownManuShown } = useApp();
