@@ -21,10 +21,7 @@ export const AppProvider = ({children}) => {
     },[]) 
 
     /*
-    useEffect(() => {
-        fetchBannerItems();
-    }, [])
-    
+    useEffect(() => fetchBannerItems(), [])
 
     const fetchBannerItems = async () => {
         try{
@@ -35,8 +32,8 @@ export const AppProvider = ({children}) => {
         }catch(err){
             //console.log(err.response, err.response.status, err.response.statusText);
         }
-    }
-        */
+    }*/  //moved to Gallery.js
+        
 
 
     const showDropDownManu = () => setDropDownManuShown(!dropDownManuShown);

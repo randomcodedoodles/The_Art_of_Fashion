@@ -19,7 +19,7 @@ function App() {
 
     return () => window.removeEventListener("load", handleHorizontalScrollBarWhenLoaded);
   },[])
-  */
+  */  //moved to AppContext.js
 
   return (
     <div className="App">

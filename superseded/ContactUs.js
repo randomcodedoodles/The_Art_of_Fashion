@@ -1,26 +1,57 @@
 
 import axios from "axios"
 import valid from "../../Resources/Icon_Valid.svg"
+import { useReducer } from "react";
+import { contactReducer, initialContactStates } from "./ContactUsReducer";
+import { useApp } from "../../contexts/AppContext";
 
+import "../styles/App-container.css"
+import "./styles/ContactUs.css"
 
-export const ContactForm = (props) => {
+export const ContactUs = () => { 
+    const { dropDownManuShown } = useApp();
 
+    //const [contactStates, dispatch] = useReducer(contactReducer, initialContactStates);
+    /*const [{ userData: {
+        FullName, 
+        EmailAddress,
+        PhoneNumbers,
+        Message,
+        bIncludeAddressDetails,
+        AddressDetails: {
+            AddressLine1,
+            AddressLine2,
+            CityTown,
+            StateCounty,
+            Postcode,
+            Country,
+        }
+    }, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates);*/
+    const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates);
+    
+    
+/*
+export const ContactForm = (props) => {  //or { contactStates: { userData, errMsg, submitted }, dispatch }
 
+    /*
     const { userData, errMsg, submitted,
         handleStatesAftSuccessFormSubmission, handleStatesAftFormSubmissionFailure,
         addPhoneNumber, addAddressDetails,
         handleInputChange, handlePhoneNumberChange } = props;
-
+        const { contactStates: { userData, errMsg, submitted }, dispatch } = props;
+*/
     const handleUserDataPost = async () => {
         try {
             const modUserData = {...userData, PhoneNumbers: userData.PhoneNumbers.filter(_num => _num !== "")};
             const res = await axios.post("https://interview-assessment.api.avamae.co.uk/api/v1/contact-us/submit", modUserData)
 
             if(res.status === 200 || res.statusText === "OK" || res.data.Status === "1" || res.data.Errors.length === 0){
-                handleStatesAftSuccessFormSubmission();
+                //handleStatesAftSuccessFormSubmission();
+                dispatch({type: "Reinstate_If_Succeed"});
             }
         }catch(err) {
-            handleStatesAftFormSubmissionFailure(err);
+            //handleStatesAftFormSubmissionFailure(err);
+            dispatch({type: "Reinstate_If_Failed", payload: {errMsg: err.response.data.Errors}});
         }
 
     }
@@ -31,15 +62,26 @@ export const ContactForm = (props) => {
 
     const addPhoneNum = (e) => { 
         e.preventDefault();
-        addPhoneNumber();
+        //addPhoneNumber();
+        dispatch({type: "Add_Phone_Number"});
+    }
+    
+    //const inputChangeHandler = e => handleInputChange(e.target.name, e.target.value) }
+    const inputChangeHandler = (e, index = 0) => {
+        console.log('enter')
+        const { name, value } = e.target;
+        //if(name === "PhoneNumbers") dispatch({type: name, payload: {userData: {name, phoneId: index, value}}});
+        if(name.startsWith("phone")) dispatch({type: "PhoneNumbers", payload: {userData: {name: "PhoneNumbers", phoneId: index, value}}});
+        else { dispatch({type: name, payload: {userData: {name, value}}}); }
     }
 
-    const inputChangeHandler = (e) => {
-        handleInputChange(e.target.name, e.target.value)
-    }
 
+    //onClick={addAddressDetails} onChange={e => handlePhoneNumberChange(e.target.value, _index)}
+
+    
 
     return (
+        <section className={`App-container ${dropDownManuShown ? 'drop-down' : ''}`}>
         <div className="contact-us">
             <div className="contact-form">
                 <h3 className="contact-title"> Contact Us</h3>
@@ -57,7 +99,7 @@ export const ContactForm = (props) => {
                     </div>
                 </div>
                 ) : ( 
-                <form action="" className="form primary" onSubmit={(e) => {formSubmissionHandler(e)}}>
+                <form action="" className="form primary" onSubmit={(e) => { formSubmissionHandler(e); }}>
                     <div className="secondary name-email">
                         <div className="form-group half name">
                             <label htmlFor="FullName" className="form-label">Full name </label>
@@ -71,7 +113,7 @@ export const ContactForm = (props) => {
                     {userData?.PhoneNumbers.map((_phone, _index) => {return (
                         <div className={`form-group primary phone phone${_index}`} key={_index}>
                             <label htmlFor={`phone${_index}`} className="form-label">Phone Number {_index <= 8 ? '0' + (_index + 1) : (_index + 1)} <span className="contact-inline">- Optional </span> </label>
-                            <input type="text" id={`phone${_index}`} name={`phone${_index}`} className="form-control" value={userData?.PhoneNumbers[_index]} onChange={e => handlePhoneNumberChange(e.target.value, _index)}/>
+                            <input type="text" id={`phone${_index}`} name={`phone${_index}`} className="form-control" value={userData?.PhoneNumbers[_index]} onChange={e => {inputChangeHandler(e, _index)}}/>
                         </div>
                     )})}
                     <div className="add-phone primary phone-btn" onClick={addPhoneNum}>
@@ -83,7 +125,7 @@ export const ContactForm = (props) => {
                         <textarea id="Message" name="Message" className="form-control" value={userData.Message} required maxLength="500" onChange={inputChangeHandler}/>
                     </div>
                     <div className="add-address primary">
-                        <div className={`checkbox ${userData.bIncludeAddressDetails ? "checked" : ""}`} id="bIncludeAddressDetails" name="bIncludeAddressDetails" onClick={addAddressDetails} value={userData.bIncludeAddressDetails}></div>
+                        <div className={`checkbox ${userData.bIncludeAddressDetails ? "checked" : ""}`} id="bIncludeAddressDetails" name="bIncludeAddressDetails" onClick={() => dispatch({type: "Add_Address_Details"})} value={userData.bIncludeAddressDetails}></div>
                         <label htmlFor="bIncludeAddressDetails" className="form-label address">Add address details? </label>
                     </div>
                     {userData.bIncludeAddressDetails ? (<>
@@ -137,5 +179,6 @@ export const ContactForm = (props) => {
             </div>
         
         </div>
+        </section>
     )
 }
