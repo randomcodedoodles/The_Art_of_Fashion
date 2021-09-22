@@ -8,6 +8,8 @@ export const AppProvider = ({children}) => {
 
     const [dropDownManuShown, setDropDownManuShown] = useState(false);
 
+    //const [bannerItems, setBannerItems] = useState([]);
+
 
     useEffect(()=>{
         console.log(document.body.scrollWidth, document.body.clientWidth, window.innerWidth, document.documentElement.clientWidth, window.screen.width)
@@ -17,6 +19,20 @@ export const AppProvider = ({children}) => {
     
         return () => window.removeEventListener("load", handleHorizontalScrollBarWhenLoaded);
     },[]) 
+
+    /*
+    useEffect(() => fetchBannerItems(), [])
+
+    const fetchBannerItems = async () => {
+        try{
+            const items = await axios.get("https://interview-assessment.api.avamae.co.uk/api/v1/home/banner-details");
+            if(items.status === 200 || items.statusText === 'OK'){
+                setBannerItems(items.data.Details);
+            }
+        }catch(err){
+            //console.log(err.response, err.response.status, err.response.statusText);
+        }
+    }*/  //moved to Gallery.js
         
 
 
@@ -29,6 +45,7 @@ export const AppProvider = ({children}) => {
     <AppContext.Provider value={{
       dropDownManuShown, setDropDownManuShown,
       showDropDownManu, alwaysHideDropDownManu,
+      //bannerItems, setBannerItems,
     }}>
       {children}
     </AppContext.Provider>
@@ -41,10 +58,12 @@ export const useApp=()=>{
     const {
         dropDownManuShown, setDropDownManuShown,
         showDropDownManu, alwaysHideDropDownManu,
+        //bannerItems, setBannerItems,
     } = useContext(AppContext);
 
     return {
         dropDownManuShown, setDropDownManuShown,
         showDropDownManu, alwaysHideDropDownManu,
+        //bannerItems, setBannerItems,
     } //return a single obj
 }

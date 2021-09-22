@@ -10,6 +10,16 @@ import ScrollToTopCenter from "./ScrollToTopCenter";
 
 
 function App() {
+/*
+  useEffect(()=>{
+    console.log(document.body.scrollWidth, document.body.clientWidth, window.innerWidth, document.documentElement.clientWidth, window.screen.width)
+
+    const handleHorizontalScrollBarWhenLoaded = () => window.scrollTo((document.body.scrollWidth - window.innerWidth) / 2, 0);
+    window.addEventListener("load", handleHorizontalScrollBarWhenLoaded);
+
+    return () => window.removeEventListener("load", handleHorizontalScrollBarWhenLoaded);
+  },[])
+  */  //moved to AppContext.js
 
   return (
     <div className="App">
