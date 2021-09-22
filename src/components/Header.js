@@ -8,10 +8,10 @@ import { useApp } from '../contexts/AppContext'
 
 export const Header = () => { 
 
-    const { dropDownManuShown, showDropDownManu, alwaysHideDropDownManu } = useApp();
+    const { dropDownManuShown, showDropDownManu, alwaysHideDropDownManu, headerRef } = useApp();
 
     return (
-        <header className="App-header">
+        <header className="App-header" ref={headerRef}>
             <nav className={dropDownManuShown ? "drop-down" : ""}>
                 <div className="logo"
                     onClick={showDropDownManu}>
