@@ -1,27 +1,15 @@
 
 import axios from "axios"
 import valid from "../../Resources/Icon_Valid.svg"
+import { useReducer } from "react";
+import { contactReducer, initialContactStates } from "./ContactUsReducer";
 import { useApp } from "../../contexts/AppContext";
 import "../styles/App-container.css"
 import "./styles/ContactUs.css"
 
-export const ContactForm = (props) => { 
-    //or 1: ({ userData, errMsg, submitted, dispatch })
-    //or 2: ({ value: { userData, errMsg, submitted, dispatch } })
-    //or 3: ({ contactStates: {userData, errMsg, submitted}, dispatch })
-    //or 4: ({ value: {contactStates: {userData, errMsg, submitted}, dispatch } })
-    //or 5: { value: [{ userData, errMsg, submitted }, dispatch] } //or ({ value })
-    //const { dropDownManuShown } = useApp();
-    //const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates);
-    
-    //const { userData, errMsg, submitted, dispatch } = props; //1
-    //const { value: { userData, errMsg, submitted, dispatch } } = props; //2
-    //const { contactStates: {userData, errMsg, submitted}, dispatch } = props //3
-    //const { value: {contactStates: {userData, errMsg, submitted}, dispatch } } = props //4
-
-    const [{ userData, errMsg, submitted }, dispatch] = props.value //5
-    //const { value: [{ userData, errMsg, submitted }, dispatch] } = props //5
-    //const [{ userData, errMsg, submitted }, dispatch] = value
+export const ContactUs = () => { 
+    const { dropDownManuShown } = useApp();
+    const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates);
     
     const handleUserDataPost = async () => {
         try {
@@ -57,7 +45,7 @@ export const ContactForm = (props) => {
     
 
     return (
-        
+        <section className={`App-container ${dropDownManuShown ? 'drop-down' : ''}`}>
             <div className="contact-us">
                 <div className="contact-form">
                     <h3 className="contact-title"> Contact Us</h3>
@@ -155,6 +143,6 @@ export const ContactForm = (props) => {
                 </div>
             
             </div>
-        
+        </section>
     )
 }

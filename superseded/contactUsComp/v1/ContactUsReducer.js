@@ -1,8 +1,4 @@
-import { useReducer } from "react";
-import { useApp } from "../../contexts/AppContext";
-import { ContactForm } from "./ContactForm"
-import "../styles/App-container.css"
-import "./styles/ContactUs.css"
+
 
 
 const initialUserData = {
@@ -104,22 +100,3 @@ export const contactReducer = (state, action) => {
     }
 }
     
-
-
-export const ContactUs = () => { 
-    const { dropDownManuShown } = useApp();
-    //const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates); //1 & 2
-    //const [contactStates, dispatch] = useReducer(contactReducer, initialContactStates); //3 & 4
-    const value = useReducer(contactReducer, initialContactStates); //5
-    return (
-        <section className={`App-container ${dropDownManuShown ? 'drop-down' : ''}`}>
-            <ContactForm value={value}/>
-        </section>
-    )
-}
-//<ContactForm userData={userData} errMsg={errMsg} submitted={submitted} dispatch={dispatch}/> // 1 ok
-//<ContactForm value={{userData, errMsg, submitted, dispatch}}/> //2 ok
-//<ContactForm contactStates={contactStates} dispatch={dispatch}/> //3 ok
-//<ContactForm value={{contactStates, dispatch}}/> //4 ok
-// <ContactForm value={value}/> //5 ok
-

@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, createContext } from "react";
 import { useApp } from "../../contexts/AppContext";
 import { ContactForm } from "./ContactForm"
 import "../styles/App-container.css"
@@ -20,14 +20,16 @@ const initialUserData = {
         Country: ""
     }
 }; 
-export const initialContactStates = {
+//export const initialContactStates = {
+const initialContactStates = {
     userData: initialUserData,
     errMsg: [],
     submitted: false,
 }
 
 
-export const contactReducer = (state, action) => {
+//export const contactReducer = (state, action) => {
+const contactReducer = (state, action) => {
 
     //const { type, payload: {userData, errMsg, submitted} } = action;
     const { type, payload } = action;
@@ -101,11 +103,12 @@ export const contactReducer = (state, action) => {
             }
         //case "Submit_Form":
         default:
+            return state
     }
 }
     
 
-
+/*
 export const ContactUs = () => { 
     const { dropDownManuShown } = useApp();
     //const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates); //1 & 2
@@ -122,4 +125,39 @@ export const ContactUs = () => {
 //<ContactForm contactStates={contactStates} dispatch={dispatch}/> //3 ok
 //<ContactForm value={{contactStates, dispatch}}/> //4 ok
 // <ContactForm value={value}/> //5 ok
+*/
 
+//export const ContactUsContext = createContext([[], ()=>{}]);
+export const ContactUsContext = createContext();
+export const ContactUsProvider = (props) => { //{children} //0
+    //const { dropDownManuShown } = useApp();
+    //const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates); //a  //i
+    //const { FullName, EmailAddress, PhoneNumbers, bIncludeAddressDetails, Message, AddressDetails } = userData
+    //const { AddressLine1, AddressLine2, CityTown, StateCounty, Postcode, Country } = AddressDetails
+    const [contactStates, dispatch] = useReducer(contactReducer, initialContactStates); //b
+    //const value = useReducer(contactReducer, initialContactStates); //c
+
+    //console.log(userData, errMsg, submitted, dispatch)
+    return (
+        <ContactUsContext.Provider value={{userData: contactStates.userData, errMsg: contactStates.errMsg, submitted: contactStates.submitted, dispatch}} {...props}>
+            { props.children }
+        </ContactUsContext.Provider>
+    )
+}
+// <ContactUsContext.Provider value={}> {children} </ContactUsContext.Provider> //0
+
+//<ContactUsContext.Provider value={{contactStates, dispatch}}> //b //<ContactUsContext.Provider value={{ contactStates, dispatch}} {...props}>
+//??<ContactUsContext.Provider value={{ 
+//    userData: contactStates.userData, errMsg: contactStates.errMsg, submitted: contactStates.submitted 
+//}, dispatch}} {...props}> //b3
+//<ContactUsContext.Provider value={value}> //c  //<ContactUsContext.Provider value={value} {...props}>
+
+
+
+//<ContactUsContext.Provider value={{ userData, errMsg, submitted, dispatch}}> <ContactUs /> </ContactUsContext.Provider> //a
+
+//{children} or <ContactUs />
+
+//<ContactUsContext.Provider value={{ userData, errMsg, submitted, dispatch}} {...props}> //i  a
+// <ContactUsContext.Provider value={{ contactStates, dispatch}} {...props}>  //b
+//<ContactUsContext.Provider value={value} {...props}> 

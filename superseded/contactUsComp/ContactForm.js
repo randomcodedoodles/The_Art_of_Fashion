@@ -4,25 +4,39 @@ import valid from "../../Resources/Icon_Valid.svg"
 import { useApp } from "../../contexts/AppContext";
 import "../styles/App-container.css"
 import "./styles/ContactUs.css"
+import { ContactUsContext, ContactUsProvider } from "./ContactUsContext";
+import { useContext } from "react";
 
-export const ContactForm = (props) => { 
+export const ContactForm = () => {  //(props)
     //or 1: ({ userData, errMsg, submitted, dispatch })
     //or 2: ({ value: { userData, errMsg, submitted, dispatch } })
     //or 3: ({ contactStates: {userData, errMsg, submitted}, dispatch })
     //or 4: ({ value: {contactStates: {userData, errMsg, submitted}, dispatch } })
     //or 5: { value: [{ userData, errMsg, submitted }, dispatch] } //or ({ value })
-    //const { dropDownManuShown } = useApp();
-    //const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates);
-    
+   
     //const { userData, errMsg, submitted, dispatch } = props; //1
     //const { value: { userData, errMsg, submitted, dispatch } } = props; //2
     //const { contactStates: {userData, errMsg, submitted}, dispatch } = props //3
     //const { value: {contactStates: {userData, errMsg, submitted}, dispatch } } = props //4
 
-    const [{ userData, errMsg, submitted }, dispatch] = props.value //5
+    //const [{ userData, errMsg, submitted }, dispatch] = props.value //5
     //const { value: [{ userData, errMsg, submitted }, dispatch] } = props //5
     //const [{ userData, errMsg, submitted }, dispatch] = value
-    
+
+    const { dropDownManuShown } = useApp();
+    //const [{ userData, errMsg, submitted }, dispatch] = useContext(ContactUsContext) //as prop.value in 5 //c1
+    ///////const [{contactState: { userData, errMsg, submitted }}, dispatch] = useContext(ContactUsContext) //as prop.value in 5 
+    //const [contactStates, dispatch] = useContext(ContactUsContext) //as prop.value in 5 //c2
+    //const { userData, errMsg, submitted } = contactStates //c2
+
+    //const { contactStates: {userData, errMsg, submitted}, dispatch } = useContext(ContactUsContext) // as 3 //b1
+    //const {contactStates, dispatch} = useContext(ContactUsContext) //b2
+    //const { userData, errMsg, submitted } = contactStates  //b2
+     const { userData, errMsg, submitted, dispatch } = useContext(ContactUsContext) //b3
+
+    //const { userData, errMsg, submitted, dispatch } = useContext(ContactUsContext) //a  //i
+    //console.log("jojo", userData, errMsg, submitted, dispatch)
+
     const handleUserDataPost = async () => {
         try {
             const modUserData = {...userData, PhoneNumbers: userData.PhoneNumbers.filter(_num => _num !== "")};
@@ -54,10 +68,10 @@ export const ContactForm = (props) => {
     }
 
 
-    
+    //return <ContactUsProvider><section></section></ContactUsProvider>
 
     return (
-        
+        <section className={`App-container ${dropDownManuShown ? 'drop-down' : ''}`}>
             <div className="contact-us">
                 <div className="contact-form">
                     <h3 className="contact-title"> Contact Us</h3>
@@ -155,6 +169,6 @@ export const ContactForm = (props) => {
                 </div>
             
             </div>
-        
+        </section>
     )
 }
