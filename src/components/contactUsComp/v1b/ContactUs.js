@@ -2,13 +2,12 @@
 import axios from "axios"
 import valid from "../../Resources/Icon_Valid.svg"
 import { useEffect, useReducer, useRef, useState } from "react";
-import { contactReducer, initialContactStates, useContactUsReducer,sendEmail } from "./ContactUsReducer";
+import { contactReducer, initialContactStates, useContactUsReducer } from "./ContactUsReducer";
 import { useApp } from "../../contexts/AppContext";
 import "../styles/App-container.css"
 import "./styles/ContactUs.css"
 import { TEMPLATE_ID_TO_CLIENT, TEMPLATE_ID_TO_XW, API_ROOT_POST_USER_CONTACTS, MAX_CHARS } from "../../constants";
-
-
+import emailjs from "emailjs-com"
 export const ContactUs = () => { 
     const { dropDownManuShown } = useApp();
     //const [{ userData, errMsg, submitted }, dispatch] = useReducer(contactReducer, initialContactStates);
@@ -16,6 +15,7 @@ export const ContactUs = () => {
     const form = useRef();
     const [charsLeft, setCharsLeft] = useState(MAX_CHARS)
     
+    //const [postDataSuccessful, setPostDataSuccessful] = useState(false)
 
     const handleUserDataPost = async (e) => {
         try {
@@ -24,12 +24,23 @@ export const ContactUs = () => {
 
             if(res.status === 200 || res.statusText === "OK" || res.data.Status === "1" || res.data.Errors.length === 0){
                 //dispatch({type: "Send_Email", payload: {form: e.target}})
-                //dispatch({type: "Send_Email", payload: {form: form.current, template: TEMPLATE_ID_TO_XW}})
-                //dispatch({type: "Send_Email", payload: {form: form.current, template: TEMPLATE_ID_TO_CLIENT}})
-                sendEmail(TEMPLATE_ID_TO_XW, form.current)
-                sendEmail(TEMPLATE_ID_TO_CLIENT, form.current)
+                dispatch({type: "Send_Email", payload: {form: form.current, template: TEMPLATE_ID_TO_XW}})
+                dispatch({type: "Send_Email", payload: {form: form.current, template: TEMPLATE_ID_TO_CLIENT}})
+            /*    emailjs.sendForm('service_988w7ee', TEMPLATE_ID_TO_CLIENT, form.current, "user_Ef6Xc4TKxklb2iQWThhYT")
+            .then((result) => {
+                console.log(result.status, result.text);
+            }, (error) => {
+                console.log(error.text, error);
+            });*/
                 
                 dispatch({type: "Reinstate_If_Succeed"}); 
+
+                //dispatch({type: "test", payload: {form: form.current, template: TEMPLATE_ID_TO_CLIENT}})
+                //case test similar to create postdatasuccessful state, if 200 above change postdatasuccessful state, 
+                //then useeffect (wrt postdatasuccessful) call fn (above two dispatch send-email and/or dispatch reinstate)
+                //setPostDataSuccessful(true)
+                //dispatch({type: "Reinstate_If_Succeed"}); //or moved to sendemail below with above two dispatch sendemail cases-> turned out wrong
+
             }
         }catch(err) {
             console.log(err)
@@ -37,7 +48,14 @@ export const ContactUs = () => {
         }
 
     }
-    
+    /*
+    const sendEmail = () => {
+        dispatch({type: "Send_Email", payload: {form: form.current, template: TEMPLATE_ID_TO_XW}})
+        //dispatch({type: "Send_Email", payload: {form: form.current, template: TEMPLATE_ID_TO_CLIENT}})
+        dispatch({type: "Reinstate_If_Succeed"});
+    }
+    useEffect(()=>sendEmail(),[postDataSuccessful]) //run sendemail (run send-email case and/or reinstate case) first loaded 
+    */
     const formSubmissionHandler = (e) => { 
         e.preventDefault();
         handleUserDataPost(e);

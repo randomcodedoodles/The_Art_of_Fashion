@@ -11,6 +11,7 @@ import SwiperCore, {
 
 import "./styles/Gallery.css";
 import { useApp } from '../../contexts/AppContext';
+import { API_ROOT_GET_IMAGES } from "../../constants"
 
 SwiperCore.use([Pagination, Navigation]);
   
@@ -23,7 +24,7 @@ export const Gallery = () => {
 
     const fetchBannerItems = async () => {
         try{
-            const items = await axios.get("https://interview-assessment.api.avamae.co.uk/api/v1/home/banner-details");
+            const items = await axios.get(API_ROOT_GET_IMAGES);
             if(items.status === 200 || items.statusText === 'OK'){
                 setBannerItems(items.data.Details);
             }

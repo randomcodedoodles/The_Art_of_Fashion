@@ -1,0 +1,25 @@
+
+.scroll-top-arrow {
+    display: none;
+}
+.scroll-top-arrow.back-to-top {
+    position: fixed;
+    display: flex;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0,0,0,.2);
+    border-radius: 30%;
+    justify-content: center;
+    align-items: center;
+}
+.scroll-top-arrow.back-to-top img {
+    width: 20px;
+    height: 20px;
+    transform: rotate(90deg);
+   -ms-transform:rotate(90deg); /* IE 9 */
+   -moz-transform:rotate(90deg); /* Firefox */
+   -webkit-transform:rotate(90deg); /* Safari and Chrome */
+   -o-transform:rotate(90deg); /* Opera */
+}

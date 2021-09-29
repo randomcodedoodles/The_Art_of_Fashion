@@ -8,12 +8,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { AppProvider } from './contexts/AppContext'
+import ScrollTopArrow from './ScrollTopArrow'
 
 ReactDOM.render(
   <React.StrictMode>
     <AppProvider>
       <App />
+      
     </AppProvider>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

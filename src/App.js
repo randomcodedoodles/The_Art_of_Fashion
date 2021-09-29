@@ -8,6 +8,7 @@ import { ContactUs } from "./components/contactUsComp/ContactUs";
 import { AboutUs } from "./components/aboutUsComp/AboutUs";
 import { Footer } from "./components/Footer";
 import ScrollToTopCenter from "./ScrollToTopCenter";
+import ScrollTopArrow from "./ScrollTopArrow";
 
 
 function App() {
@@ -23,9 +24,13 @@ function App() {
             <Route path="/contact-us" component={ContactUs}/>
             <Route>404 Not Found!</Route>
           </Switch>
+          
           <Footer />
+          
         </ScrollToTopCenter>
+        
       </Router>
+      <ScrollTopArrow/>
     </div>
   );
 }

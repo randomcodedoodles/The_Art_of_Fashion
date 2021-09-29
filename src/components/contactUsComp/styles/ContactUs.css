@@ -371,3 +371,11 @@
     width: 28px;
     height: 28px;
   }
+
+  .remaining-chars.orange-flag {
+    /*float: right; /*flex start above*/
+    color: orange
+  }
+  .remaining-chars.red-flag {
+    color: red
+  }
