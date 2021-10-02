@@ -1,3 +1,5 @@
+https://the-art-of-fashion.firebaseapp.com/
+
 Resources: 
 
 There are separate designs for the desktop and mobile views of the site. The desktop design can
